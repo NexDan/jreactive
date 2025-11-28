@@ -113,9 +113,11 @@ public class ObservableDelay<T> extends Observable<T> {
             
             @Override
             public void onError(Throwable error) {
-                if (!disposed.getAndSet(true)) {
+                if (!disposed.get()) {
                     Disposable task = scheduler.scheduleDirect(() -> {
-                        observer.onError(error);
+                        if (!disposed.get()) {
+                            observer.onError(error);
+                        }
                     }, delay, unit);
                     if (task != null) {
                         scheduledTasks.add(task);
@@ -125,9 +127,11 @@ public class ObservableDelay<T> extends Observable<T> {
             
             @Override
             public void onComplete() {
-                if (!disposed.getAndSet(true)) {
+                if (!disposed.get()) {
                     Disposable task = scheduler.scheduleDirect(() -> {
-                        observer.onComplete();
+                        if (!disposed.get()) {
+                            observer.onComplete();
+                        }
                     }, delay, unit);
                     if (task != null) {
                         scheduledTasks.add(task);
