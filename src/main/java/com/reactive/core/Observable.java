@@ -1307,56 +1307,7 @@ public abstract class Observable<T> {
     }
     
     public final Observable<T> debounce(long timeout, TimeUnit unit, Scheduler scheduler) {
-        return new Observable<T>() {
-            @Override
-            public void subscribe(Observer<? super T> observer) {
-                AtomicReference<Disposable> timerDisposable = new AtomicReference<>();
-                AtomicReference<T> latestValue = new AtomicReference<>();
-                
-                Observable.this.subscribe(new Observer<T>() {
-                    @Override
-                    public void onNext(T value) {
-                        latestValue.set(value);
-                        
-                        Disposable current = timerDisposable.get();
-                        if (current != null) {
-                            current.dispose();
-                        }
-                        
-                        Disposable newTimer = scheduler.scheduleDirect(() -> {
-                            T valueToEmit = latestValue.getAndSet(null);
-                            if (valueToEmit != null) {
-                                observer.onNext(valueToEmit);
-                            }
-                        }, timeout, unit);
-                        
-                        timerDisposable.set(newTimer);
-                    }
-                    
-                    @Override
-                    public void onError(Throwable error) {
-                        Disposable current = timerDisposable.get();
-                        if (current != null) {
-                            current.dispose();
-                        }
-                        observer.onError(error);
-                    }
-                    
-                    @Override
-                    public void onComplete() {
-                        Disposable current = timerDisposable.get();
-                        if (current != null) {
-                            current.dispose();
-                        }
-                        T valueToEmit = latestValue.get();
-                        if (valueToEmit != null) {
-                            observer.onNext(valueToEmit);
-                        }
-                        observer.onComplete();
-                    }
-                });
-            }
-        };
+        return new com.reactive.operators.time.ObservableDebounce<>(this, timeout, unit, scheduler);
     }
     
     /**
@@ -1368,37 +1319,19 @@ public abstract class Observable<T> {
     }
     
     public final Observable<T> throttleFirst(long windowDuration, TimeUnit unit, Scheduler scheduler) {
-        return new Observable<T>() {
-            @Override
-            public void subscribe(Observer<? super T> observer) {
-                AtomicLong lastEmitTime = new AtomicLong(0);
-                
-                Observable.this.subscribe(new Observer<T>() {
-                    @Override
-                    public void onNext(T value) {
-                        long currentTime = System.nanoTime();
-                        long lastTime = lastEmitTime.get();
-                        long windowNanos = unit.toNanos(windowDuration);
-                        
-                        if (currentTime - lastTime >= windowNanos) {
-                            if (lastEmitTime.compareAndSet(lastTime, currentTime)) {
-                                observer.onNext(value);
-                            }
-                        }
-                    }
-                    
-                    @Override
-                    public void onError(Throwable error) {
-                        observer.onError(error);
-                    }
-                    
-                    @Override
-                    public void onComplete() {
-                        observer.onComplete();
-                    }
-                });
-            }
-        };
+        return new com.reactive.operators.time.ObservableThrottleFirst<>(this, windowDuration, unit, scheduler);
+    }
+    
+    /**
+     * Alias for sample. Emits the most recent item at specified time intervals.
+     * Useful for rate limiting while keeping the most recent value.
+     */
+    public final Observable<T> throttleLast(long intervalDuration, TimeUnit unit) {
+        return throttleLast(intervalDuration, unit, Schedulers.computation());
+    }
+    
+    public final Observable<T> throttleLast(long intervalDuration, TimeUnit unit, Scheduler scheduler) {
+        return new com.reactive.operators.time.ObservableThrottleLast<>(this, intervalDuration, unit, scheduler);
     }
     
     /**
@@ -1409,45 +1342,7 @@ public abstract class Observable<T> {
     }
     
     public final Observable<T> sample(long period, TimeUnit unit, Scheduler scheduler) {
-        return new Observable<T>() {
-            @Override
-            public void subscribe(Observer<? super T> observer) {
-                AtomicReference<T> latestValue = new AtomicReference<>();
-                AtomicBoolean hasValue = new AtomicBoolean(false);
-                
-                Disposable samplingTimer = scheduler.schedulePeriodic(() -> {
-                    if (hasValue.getAndSet(false)) {
-                        T value = latestValue.get();
-                        if (value != null) {
-                            observer.onNext(value);
-                        }
-                    }
-                }, period, period, unit);
-                
-                Observable.this.subscribe(new Observer<T>() {
-                    @Override
-                    public void onNext(T value) {
-                        latestValue.set(value);
-                        hasValue.set(true);
-                    }
-                    
-                    @Override
-                    public void onError(Throwable error) {
-                        samplingTimer.dispose();
-                        observer.onError(error);
-                    }
-                    
-                    @Override
-                    public void onComplete() {
-                        samplingTimer.dispose();
-                        if (hasValue.get()) {
-                            observer.onNext(latestValue.get());
-                        }
-                        observer.onComplete();
-                    }
-                });
-            }
-        };
+        return new com.reactive.operators.time.ObservableSample<>(this, period, unit, scheduler);
     }
     
     // ============ Aggregation Operators ============
@@ -2339,27 +2234,19 @@ public abstract class Observable<T> {
     }
     
     public final Observable<T> delay(long delay, TimeUnit unit, Scheduler scheduler) {
-        return new Observable<T>() {
-            @Override
-            public void subscribe(Observer<? super T> observer) {
-                Observable.this.subscribe(new Observer<T>() {
-                    @Override
-                    public void onNext(T value) {
-                        scheduler.scheduleDirect(() -> observer.onNext(value), delay, unit);
-                    }
-                    
-                    @Override
-                    public void onError(Throwable error) {
-                        scheduler.scheduleDirect(() -> observer.onError(error), delay, unit);
-                    }
-                    
-                    @Override
-                    public void onComplete() {
-                        scheduler.scheduleDirect(observer::onComplete, delay, unit);
-                    }
-                });
-            }
-        };
+        return new com.reactive.operators.time.ObservableDelay<>(this, delay, unit, scheduler);
+    }
+    
+    /**
+     * Delays the subscription to the source Observable by the specified time.
+     * Unlike delay which delays each item, this delays when the subscription happens.
+     */
+    public final Observable<T> delaySubscription(long delay, TimeUnit unit) {
+        return delaySubscription(delay, unit, Schedulers.computation());
+    }
+    
+    public final Observable<T> delaySubscription(long delay, TimeUnit unit, Scheduler scheduler) {
+        return new com.reactive.operators.time.ObservableDelaySubscription<>(this, delay, unit, scheduler);
     }
     
     public final Observable<T> timeout(long timeout, TimeUnit unit) {
