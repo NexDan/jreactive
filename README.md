@@ -370,8 +370,19 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 - Designed to be more accessible for developers learning reactive programming
 - Focused on simplicity without sacrificing essential functionality
 
-## 📖 Additional Resources
+## 📖 Documentation
 
+### Core Guides
+- [Single, Maybe & Completable](docs/SINGLE_MAYBE_COMPLETABLE.md) - Guide to specialized reactive types
+- [Subjects](docs/SUBJECTS.md) - Hot Observables and multicasting
+- [Specialized Types](docs/SPECIALIZED_TYPES.md) - Overview of all specialized types
+
+### Performance
+- [Benchmarks](docs/benchmarks/BENCHMARKS.md) - Methodology and setup
+- [Benchmark Results](docs/benchmarks/RESULTS.md) - Performance vs RxJava
+- [Complete Documentation](docs/) - Full documentation index
+
+### External Resources
 - [ReactiveX](http://reactivex.io/) - ReactiveX Specification
 - [Reactive Streams](https://www.reactive-streams.org/) - Reactive Streams Specification
 - Examples included in `src/examples/java/com/reactive/examples/`
