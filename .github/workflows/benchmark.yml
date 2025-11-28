@@ -1,0 +1,40 @@
+name: Benchmarks
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 2 * * 0'  # Run weekly on Sunday at 2 AM
+
+jobs:
+  benchmark:
+    name: Run JMH Benchmarks
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'maven'
+        
+    - name: Build benchmarks
+      run: mvn -B clean package -P benchmarks
+      
+    - name: Run benchmarks
+      run: java -jar target/benchmarks.jar -rf json -rff benchmark-results.json
+      timeout-minutes: 60
+      
+    - name: Upload benchmark results
+      uses: actions/upload-artifact@v4
+      with:
+        name: benchmark-results
+        path: benchmark-results.json
+        
+    - name: Comment benchmark results
+      if: github.event_name == 'pull_request'
+      run: |
+        echo "Benchmark results available in artifacts"

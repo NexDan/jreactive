@@ -1,0 +1,62 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Set up JDK 17
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: 'maven'
+        
+    - name: Build release artifacts
+      run: mvn -B clean package -DskipTests
+      
+    - name: Get version from tag
+      id: get_version
+      run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
+      
+    - name: Create Release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: |
+          target/jreactive-*.jar
+          README.md
+          LICENSE
+        body: |
+          ## JReactive ${{ steps.get_version.outputs.VERSION }}
+          
+          ### Installation
+          
+          #### Maven
+          ```xml
+          <dependency>
+              <groupId>com.reactive</groupId>
+              <artifactId>jreactive</artifactId>
+              <version>${{ steps.get_version.outputs.VERSION }}</version>
+          </dependency>
+          ```
+          
+          #### Gradle
+          ```gradle
+          implementation 'com.reactive:jreactive:${{ steps.get_version.outputs.VERSION }}'
+          ```
+          
+          See the [README](https://github.com/yasmramos/jreactive/blob/main/README.md) for full documentation.
+        draft: false
+        prerelease: false
