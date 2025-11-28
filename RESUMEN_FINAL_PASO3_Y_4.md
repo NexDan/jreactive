@@ -479,7 +479,7 @@ Los **Pasos 3 y 4** han sido **implementados exitosamente** con:
 
 ---
 
-**Author**: MiniMax Agent  
+**Author**: Yasmany Ramos García  
 **Date**: 2025-11-27  
 **Version**: 2.0.0-SNAPSHOT  
 **Status**: ✅ Completado 100%

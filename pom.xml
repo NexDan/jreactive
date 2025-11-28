@@ -11,6 +11,17 @@
 
     <name>JReactive</name>
     <description>A high-performance reactive programming library for Java with advanced features</description>
+    
+    <developers>
+        <developer>
+            <name>Yasmany Ramos García</name>
+            <email>yasmramos@github.com</email>
+            <url>https://github.com/yasmramos</url>
+            <roles>
+                <role>Lead Developer</role>
+            </roles>
+        </developer>
+    </developers>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

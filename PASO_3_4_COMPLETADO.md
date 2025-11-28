@@ -524,6 +524,6 @@ La biblioteca ahora tiene capacidades **profesionales** para manejar:
 - Buffering temporal y por count
 - Conversión entre Observable y Flowable
 
-**Author**: MiniMax Agent  
+**Author**: Yasmany Ramos García  
 **Date**: 2025-11-27  
 **Version**: 2.0.0-SNAPSHOT

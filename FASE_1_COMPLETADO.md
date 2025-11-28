@@ -441,6 +441,6 @@ La Fase 1 ha sido completada exitosamente con:
 
 ---
 
-**Autor:** MiniMax Agent  
+**Autor:** Yasmany Ramos García  
 **Versión Reactive-Java:** 1.0-SNAPSHOT (Fase 1 completada)  
 **Fecha:** 2025-11-27

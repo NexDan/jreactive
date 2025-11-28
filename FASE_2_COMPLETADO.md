@@ -645,5 +645,5 @@ CompletableFuture<T> cf = observable.toCompletableFuture();
 ---
 
 **Fecha de Actualización**: 2025-11-27  
-**Autor**: MiniMax Agent  
+**Autor**: Yasmany Ramos García  
 **Versión**: 1.0.0

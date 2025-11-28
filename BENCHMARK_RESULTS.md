@@ -235,7 +235,7 @@
 ---
 
 **Generado**: 2025-11-26  
-**Autor**: MiniMax Agent  
+**Autor**: Yasmany Ramos García  
 **Versión**: jreactive 2.0.0-SNAPSHOT  
 **Compilación**: BUILD SUCCESS ✅  
 **Tests**: 33/33 ✅  

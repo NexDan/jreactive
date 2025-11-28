@@ -419,5 +419,5 @@ Los Subjects completan la funcionalidad core de multicasting en la biblioteca, p
 
 ---
 
-**Autor**: MiniMax Agent  
+**Autor**: Yasmany Ramos García  
 **Fecha**: 2025-11-26
