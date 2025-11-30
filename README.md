@@ -390,4 +390,3 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ---
 
 **Questions or suggestions?** Open an issue in the repository.
-# Test trigger

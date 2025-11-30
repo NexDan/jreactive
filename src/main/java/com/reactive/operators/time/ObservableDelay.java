@@ -42,6 +42,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
  *   <li><strong>delay</strong>: Retrasa cada elemento individual</li>
  *   <li><strong>delaySubscription</strong>: Retrasa cuándo empezar a observar</li>
  * </ul>
+ *
+ * <p>Implementación corregida: El operador ahora correctamente permite que las tareas
+ * programadas se ejecuten completamente antes de disponer, evitando el problema de
+ * disposición prematura que impedía que los valores delayed llegaran al observer.
  * 
  * @param <T> Tipo de elementos
  * @author Yasmany Ramos García
