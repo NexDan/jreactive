@@ -1,17 +1,29 @@
 package com.reactive.operators.time;
 
-import com.reactive.core.Observable;
-import com.reactive.schedulers.Schedulers;
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.junit.jupiter.api.AfterEach;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
+
+import com.reactive.core.Observable;
+import com.reactive.schedulers.Schedulers;
 
 /**
  * Tests comprehensivos para operadores de tiempo: debounce, throttle, sample, delay
@@ -152,8 +164,6 @@ public class TimeOperatorsTest {
         assertNotNull(error.get());
         assertEquals("Test error", error.get().getMessage());
     }
-    
-    // ============ THROTTLE FIRST TESTS ============
     
     @Test
     @Order(4)
