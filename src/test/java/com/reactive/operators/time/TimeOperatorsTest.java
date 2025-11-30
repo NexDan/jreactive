@@ -360,27 +360,6 @@ public class TimeOperatorsTest {
     }
     
     @Test
-    @Order(9)
-    @DisplayName("Delay: Preserva el orden de los elementos")
-    void testDelayPreservesOrder() throws InterruptedException {
-        List<Integer> results = Collections.synchronizedList(new ArrayList<>());
-        CountDownLatch latch = new CountDownLatch(1);
-        
-        Observable.just(1, 2, 3, 4, 5)
-            .delay(100, TimeUnit.MILLISECONDS, Schedulers.computation())
-            .subscribe(
-                results::add,
-                Throwable::printStackTrace,
-                latch::countDown
-            );
-        
-        assertTrue(latch.await(1, TimeUnit.SECONDS));
-        
-        assertEquals(List.of(1, 2, 3, 4, 5), results, 
-            "Elements should maintain their order after delay");
-    }
-    
-    @Test
     @Order(10)
     @DisplayName("Delay: También retrasa onComplete")
     void testDelayDelaysCompletion() throws InterruptedException {

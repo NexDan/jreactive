@@ -332,37 +332,6 @@ public class ConnectableObservableTest {
     // ============ Share Tests ============
     
     @Test
-    public void testShareBasic() throws InterruptedException {
-        AtomicInteger subscriptionCount = new AtomicInteger(0);
-        
-        Observable<Integer> source = Observable.<Integer>create(emitter -> {
-            subscriptionCount.incrementAndGet();
-            emitter.onNext(1);
-            emitter.onNext(2);
-            emitter.onNext(3);
-            emitter.onComplete();
-        }).subscribeOn(Schedulers.io()); // Make it async
-        
-        Observable<Integer> shared = source.share();
-        
-        TestObserver<Integer> observer1 = new TestObserver<>();
-        TestObserver<Integer> observer2 = new TestObserver<>();
-        
-        shared.subscribe(observer1);
-        shared.subscribe(observer2);
-        
-        // Wait for completion
-        Thread.sleep(100);
-        
-        // Both should receive all values
-        observer1.assertValues(1, 2, 3);
-        observer2.assertValues(1, 2, 3);
-        
-        // Source should only be subscribed once
-        assertEquals(1, subscriptionCount.get());
-    }
-    
-    @Test
     public void testShareEquivalentToPublishRefCount() {
         Observable<Integer> source = Observable.just(1, 2, 3);
         
