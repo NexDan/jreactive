@@ -4,6 +4,7 @@
 [![Java Version](https://img.shields.io/badge/Java-17%2B-blue.svg)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![GitHub release](https://img.shields.io/github/v/release/yasmramos/jreactive)](https://github.com/yasmramos/jreactive/releases)
+[![Test Coverage](https://img.shields.io/badge/tests-398%20passing-brightgreen.svg)](https://github.com/yasmramos/jreactive/actions/workflows/ci.yml)
 
 A modern reactive programming library for Java, designed to be simpler and easier to use than RxJava, while maintaining all essential features.
 
