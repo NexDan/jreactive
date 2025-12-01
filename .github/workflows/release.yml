@@ -7,11 +7,12 @@ on:
 
 jobs:
   release:
-    name: Create Release
+    name: Build, Test and Release
     runs-on: ubuntu-latest
     
     permissions:
       contents: write
+      packages: write
     
     steps:
     - name: Checkout code
@@ -23,7 +24,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: 'maven'
+        server-id: github
+        settings-path: ${{ github.workspace }}
         
+    - name: Run tests
+      run: mvn -B test
+      
     - name: Build release artifacts
       run: mvn -B clean package -DskipTests
       
@@ -31,7 +37,12 @@ jobs:
       id: get_version
       run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
       
-    - name: Create Release
+    - name: Publish to GitHub Packages
+      run: mvn -B deploy -DskipTests
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      
+    - name: Create GitHub Release
       uses: softprops/action-gh-release@v1
       with:
         files: |
@@ -41,9 +52,33 @@ jobs:
         body: |
           ## JReactive ${{ steps.get_version.outputs.VERSION }}
           
+          ### What's New
+          
+          This is an **alpha release** of JReactive - a high-performance reactive programming library for Java.
+          
+          ### Features
+          - 4 Reactive Types: Observable, Single, Maybe, Completable
+          - 60+ Operators: map, filter, flatMap, merge, zip, concat, retry, and more
+          - Time Operators: debounce, throttle, sample, delay
+          - Schedulers: io, computation, newThread
+          - Error Handling: onErrorReturn, onErrorResumeNext, retry
+          - Reactive Streams compatible
+          
           ### Installation
           
-          #### Maven
+          #### GitHub Packages (Maven)
+          
+          Add the repository to your `pom.xml`:
+          ```xml
+          <repositories>
+              <repository>
+                  <id>github</id>
+                  <url>https://maven.pkg.github.com/yasmramos/jreactive</url>
+              </repository>
+          </repositories>
+          ```
+          
+          Add the dependency:
           ```xml
           <dependency>
               <groupId>com.reactive</groupId>
@@ -52,11 +87,34 @@ jobs:
           </dependency>
           ```
           
-          #### Gradle
+          #### GitHub Packages (Gradle)
+          
+          Add the repository to your `build.gradle`:
+          ```gradle
+          repositories {
+              maven {
+                  url = uri("https://maven.pkg.github.com/yasmramos/jreactive")
+                  credentials {
+                      username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USER")
+                      password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+                  }
+              }
+          }
+          ```
+          
+          Add the dependency:
           ```gradle
           implementation 'com.reactive:jreactive:${{ steps.get_version.outputs.VERSION }}'
           ```
           
+          ### Documentation
+          
           See the [README](https://github.com/yasmramos/jreactive/blob/main/README.md) for full documentation.
+          
+          ### Requirements
+          
+          - Java 17 or higher
+          
         draft: false
-        prerelease: false
+        prerelease: true
+        generate_release_notes: true
